@@ -1,0 +1,18 @@
+# Bike Sales Analysis - Excel Project
+
+## Objective
+Analyze customer demographics and income levels to identify purchasing patterns.
+
+## Data Cleaning
+- Standardized gender and marital status
+- Created age brackets using nested IF
+- Created income category segmentation
+
+## Analysis
+- Average income per purchase
+- Purchase distribution by region and income
+- Commute distance analysis
+
+## Key Insights
+- High-income customers had higher purchase rates
+- Certain regions showed stronger performance
