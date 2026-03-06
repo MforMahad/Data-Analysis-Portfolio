@@ -1,0 +1,56 @@
+# Data Professional Survey Dashboard (Power BI)
+
+## Project Overview
+
+This project analyzes a real survey dataset from data professionals around the world. The goal of this dashboard is to explore insights about salaries, job roles, programming languages, work-life balance, and the difficulty of entering the data industry.
+
+The dashboard was built using **Power BI** with data cleaning performed in **Power Query**.
+
+## Dataset
+
+The dataset contains responses from **630 data professionals** including information such as:
+
+* Job title
+* Country
+* Salary
+* Programming language preference
+* Age
+* Work-life balance satisfaction
+* Salary satisfaction
+* Difficulty of breaking into the data field
+* many more
+
+## Data Cleaning
+
+Before building the dashboard, several data preparation steps were performed:
+
+* Cleaned column names and structured fields
+* Handled categorical survey responses
+* Organized job titles and programming language categories
+* Prepared fields for visualization and analysis
+
+Data transformations were performed using **Power Query**.
+
+## Dashboard Insights
+
+Key insights from the analysis include:
+
+* Data Scientists have the highest average salary among surveyed roles.
+* Python is the most popular programming language among data professionals.
+* A large portion of respondents reported that breaking into the data field is **neither easy nor difficult**, with many still finding it challenging.
+* The average age of survey participants is approximately **30 years old**.
+* Work-life balance satisfaction is moderate, while salary satisfaction is slightly lower.
+
+## Tools Used
+
+* Power BI
+* Power Query
+* DAX (basic measures and aggregations)
+
+## Dashboard Preview
+
+![Dashboard Screenshot](dashboard.png)
+
+## Author
+
+Mahad Khan
