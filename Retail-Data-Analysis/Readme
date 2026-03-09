@@ -1,0 +1,40 @@
+# Retail Data Integrity & Cleaning Pipeline
+
+##  Project Overview
+This project demonstrates a professional data engineering and cleaning workflow on a retail dataset containing 
+**11,971 transactions**. The objective was to transform a "noisy" raw dataset into a validated, 
+high-integrity source ready for business intelligence and exploratory analysis.
+
+
+
+## 🛠️ Technical Stack
+* **Language:** Python 3.x
+* **Library:** Pandas
+* **Methodology:** Programmatic Validation & Logic-based Imputation
+
+## 🧹 Cleaning & Validation Steps
+
+### 1. Programmatic Data Reconstruction
+* **Problem:** 609 records were missing `Price_Per_Unit`.
+* **Solution:** Reconstructed the missing values by calculating the ratio between `Total_Spent` and `Quantity`.
+* **Standardization:** Renamed "Unknown Item" to `Unknown_Item` to ensure consistent string formatting for future queries and SQL compatibility.
+
+### 2. Logic Audit & Dimensionality Reduction
+* **Verification:** Conducted a mathematical audit to check for hidden discounts.
+* **Audit Formula:** `abs((Price * Quantity) - Total_Spent)`
+* **Discovery:** Confirmed a **0.0 variance** across all 11,971 rows.
+* **Action:** Removed the `Discount_Applied` column as it contained 100% `False` values. This optimized the dataset by removing redundant features with zero analytical value.
+
+### 3. Schema Optimization
+* **Time-Series Prep:** Converted `Transaction_Date` to **Datetime** objects to enable temporal analysis.
+* **Type Casting:** Converted `Quantity` to **Integer** (int64) to reflect the discrete nature of products and improve memory efficiency.
+
+
+
+## Final Dataset Status
+| Attribute | Detail |
+| :--- | :--- |
+| **Total Transactions** | 11,971 |
+| **Missing Values** | 0% (All Fixed) |
+| **Logic Check** | Verified (Price * Qty = Total) |
+| **Schema** | Optimized for Analysis |
