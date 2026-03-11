@@ -97,19 +97,6 @@ This suggests a **post-holiday or New Year purchasing surge**.
 Analyzing promotional campaigns or customer behavior during this period could help replicate this success in slower months.
 
 ---
-
-## Project Structure
-
-```
-retail-sales-analysis-python
-
-├── Cleaned_Retail_Store_sales.csv
-├── retail_sales_analysis.ipynb
-└── README.md
-```
-
----
-
 ## Author
 
 Mahad Khan
