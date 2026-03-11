@@ -1,0 +1,116 @@
+# Retail Store Sales Analysis (Python EDA)
+
+## Project Overview
+
+This project performs **Exploratory Data Analysis (EDA)** on a retail store dataset containing **11,971 transactions**.
+The goal was to clean the dataset, analyze purchasing behavior, and visualize key business insights.
+
+The analysis was performed using **Python, pandas, and matplotlib** in a Jupyter Notebook environment.
+
+---
+
+## Dataset Information
+
+The dataset includes transaction-level retail data with the following fields:
+
+* Transaction_ID
+* Customer_ID
+* Category
+* Item
+* Price_Per_Unit
+* Quantity
+* Total_Spent
+* Payment_Method
+* Location (Online / In-store)
+* Transaction_Date
+
+Total records analyzed: **11,971 transactions**
+
+---
+
+## Tools & Technologies
+
+* Python
+* Pandas (Data Cleaning & Analysis)
+* Matplotlib (Data Visualization)
+* Jupyter Notebook
+
+---
+
+## Analysis Performed
+
+The project followed a standard **data analysis workflow**:
+
+1. Data Loading
+2. Data Cleaning
+3. Exploratory Data Analysis (EDA)
+4. Data Visualization
+5. Business Insights
+
+Visualizations created:
+
+* Revenue by Category
+* Payment Method Usage
+* Revenue by Location
+* Monthly Sales Trend
+
+---
+
+# 📈 Key Business Insights
+
+Based on the comprehensive analysis of **11,971 transactions**, the following insights were discovered:
+
+### 1. Revenue Leaders by Category
+
+**Top Performer:** The *Butchers* category is the primary revenue driver, followed closely by *Electric Household Essentials*.
+
+**Insight:**
+While other categories may have high transaction counts, these two sectors contribute the **highest total revenue** to the business.
+
+---
+
+### 2. Consumer Payment Preferences
+
+**Dominant Method:** *Cash* is the most frequently used payment method.
+
+**Insight:**
+Despite the rise of digital payments, a large segment of customers still prefers **traditional cash transactions**, meaning businesses must maintain reliable cash-handling processes.
+
+---
+
+### 3. Channel Performance (Online vs In-store)
+
+**Top Channel:** *Online transactions generated higher total revenue than in-store purchases.*
+
+**Insight:**
+The company's digital channel shows strong performance.
+Future marketing and inventory strategies could prioritize **online operations** to maximize growth.
+
+---
+
+### 4. Seasonality & Sales Trends
+
+**Peak Month:** *January recorded the highest revenue.*
+
+**Insight:**
+This suggests a **post-holiday or New Year purchasing surge**.
+Analyzing promotional campaigns or customer behavior during this period could help replicate this success in slower months.
+
+---
+
+## Project Structure
+
+```
+retail-sales-analysis-python
+
+├── Cleaned_Retail_Store_sales.csv
+├── retail_sales_analysis.ipynb
+└── README.md
+```
+
+---
+
+## Author
+
+Mahad Khan
+Data Analysis Portfolio Project
