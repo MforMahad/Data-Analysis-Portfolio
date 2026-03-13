@@ -1,0 +1,59 @@
+# Crypto Market Data Analysis
+
+This project collects cryptocurrency market data using the CoinGecko API and prepares it for analysis.
+
+## Project Overview
+
+The goal of this project is to demonstrate a basic data analysis pipeline:
+
+API → Python → Data Cleaning → Feature Engineering → Dataset Export
+
+The dataset is later used for analysis and visualization.
+
+## Tools Used
+
+- Python
+- Pandas
+- Requests
+- Matplotlib
+- Seaborn
+- CoinGecko API
+
+## Data Collection
+
+Cryptocurrency market data is collected from the CoinGecko API using Python.
+
+The raw JSON response is converted into a pandas DataFrame and cleaned to keep only relevant analytical columns.
+
+## Feature Engineering
+
+Additional analytical columns were created:
+
+- price_distance_from_ath
+- price_distance_from_atl
+- volatility_estimate
+
+These metrics help analyze market volatility and price positioning.
+
+## Dataset
+
+The cleaned dataset is exported as:
+
+data/crypto_market_data.csv
+
+This dataset contains key cryptocurrency metrics such as:
+
+- current price
+- market capitalization
+- trading volume
+- price change (24h)
+- circulating supply
+- all-time highs and lows
+
+## Future Work
+
+Next steps include:
+
+- SQL-based analysis
+- building a Power BI dashboard
+- deeper exploratory data analysis (EDA)
