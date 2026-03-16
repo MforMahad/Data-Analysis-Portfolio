@@ -1,59 +1,191 @@
-# Crypto Market Data Analysis
+# Crypto Market Analysis Case Study
 
-This project collects cryptocurrency market data using the CoinGecko API and prepares it for analysis.
+This project analyzes cryptocurrency market data collected from the CoinGecko API and demonstrates a complete **data analysis pipeline** from data collection to dashboard visualization.
 
-## Project Overview
+The goal of this case study is to simulate how a data analyst would collect, process, analyze, and visualize real-world financial market data.
 
-The goal of this project is to demonstrate a basic data analysis pipeline:
+---
 
-API → Python → Data Cleaning → Feature Engineering → Dataset Export
+# Project Overview
 
-The dataset is later used for analysis and visualization.
+This project follows a full data workflow:
 
-## Tools Used
+API → Python → Data Cleaning → Feature Engineering → SQL Analysis → Power BI Dashboard
 
-- Python
-- Pandas
-- Requests
-- Matplotlib
-- Seaborn
-- CoinGecko API
+The project demonstrates how raw API data can be transformed into actionable insights using modern data tools.
 
-## Data Collection
+---
 
-Cryptocurrency market data is collected from the CoinGecko API using Python.
+# Tools & Technologies
 
-The raw JSON response is converted into a pandas DataFrame and cleaned to keep only relevant analytical columns.
+* **Python**
+* **Pandas**
+* **Requests**
+* **MySQL**
+* **Power BI**
+* **CoinGecko API**
 
-## Feature Engineering
+---
 
-Additional analytical columns were created:
+# Data Collection
 
-- price_distance_from_ath
-- price_distance_from_atl
-- volatility_estimate
+Cryptocurrency market data was collected using the CoinGecko API.
 
-These metrics help analyze market volatility and price positioning.
+Using Python and the `requests` library, the API response was retrieved in JSON format and converted into a structured pandas DataFrame for further analysis.
 
-## Dataset
+The data includes multiple cryptocurrency metrics such as:
 
-The cleaned dataset is exported as:
+* coin name
+* symbol
+* current price
+* market capitalization
+* trading volume
+* price change percentage (24h)
+* circulating supply
+* all-time highs and lows
 
-data/crypto_market_data.csv
+---
 
-This dataset contains key cryptocurrency metrics such as:
+# Data Cleaning
 
-- current price
-- market capitalization
-- trading volume
-- price change (24h)
-- circulating supply
-- all-time highs and lows
+The original dataset contained many columns that were not necessary for analysis.
+The dataset was cleaned and reduced to the most relevant analytical features.
 
-## Future Work
+The cleaned dataset includes:
 
-Next steps include:
+* name
+* symbol
+* current_price
+* market_cap
+* market_cap_rank
+* total_volume
+* price_change_percentage_24h
+* circulating_supply
+* ath
+* atl
 
-- SQL-based analysis
-- building a Power BI dashboard
-- deeper exploratory data analysis (EDA)
+---
+
+# Feature Engineering
+
+Additional analytical metrics were created to support deeper analysis:
+
+**price_distance_from_ath**
+
+Distance between the current price and the all-time high.
+
+**price_distance_from_atl**
+
+Distance between the current price and the all-time low.
+
+**volatility_estimate**
+
+Estimated volatility calculated using the difference between ATH and ATL.
+
+These engineered features help analyze:
+
+* market momentum
+* price positioning
+* asset volatility
+
+---
+
+# Exploratory Data Analysis (SQL)
+
+The cleaned dataset was imported into **MySQL** to perform analytical queries similar to real data analyst workflows.
+
+SQL analysis included:
+
+* Identifying the **top cryptocurrencies by market capitalization**
+* Finding the **most traded cryptocurrencies by volume**
+* Detecting **highest 24-hour gainers**
+* Ranking coins using **window functions**
+* Comparing coins with **above-average volatility**
+* Calculating **market share percentages**
+* Categorizing cryptocurrencies by **price levels**
+
+These queries simulate real analytical tasks used in financial data analysis.
+
+---
+
+# Data Visualization
+
+A dashboard was created in **Power BI** to visualize insights from the dataset.
+
+The dashboard includes:
+
+**Top 10 Cryptocurrencies by Market Cap**
+
+Shows the most dominant cryptocurrencies in the market.
+
+**Top 10 Cryptocurrencies by Trading Volume**
+
+Highlights coins with the highest trading activity.
+
+**Top 10 Crypto Gainers (24h)**
+
+Displays cryptocurrencies with the highest daily price increases.
+
+**Market Cap vs Volatility**
+
+A scatter plot showing the relationship between asset size and price volatility.
+
+**Cryptocurrency Price Distribution**
+
+Breaks coins into price categories (High, Medium, Low).
+
+---
+
+# Key Insights
+
+* A small number of cryptocurrencies dominate the majority of market capitalization.
+* Some smaller market cap coins show significantly higher volatility.
+* Trading volume is concentrated among a limited number of major assets.
+* Price distribution indicates that most cryptocurrencies fall into the lower price category.
+
+---
+
+# Project Structure
+
+```
+crypto-market-analysis
+
+data/
+    crypto_market_data_v3.csv
+
+notebooks/
+    crypto_api_data_collection.ipynb
+    crypto_api_data_visualizations.ipynb
+
+sql/
+    crypto_analysis.sql
+
+Powerbi/
+    crypto_market_dashboard.pbix
+
+Visuals/
+    Python_visuals
+
+README.md
+```
+
+---
+
+# Conclusion
+
+This project demonstrates a complete data analysis workflow using real cryptocurrency market data.
+
+The case study highlights how multiple tools can work together in a modern data stack:
+
+Python for data collection and processing
+SQL for analytical querying
+Power BI for visualization and dashboard creation
+
+---
+
+# Future Improvements
+
+* Automate daily data collection using scheduled Python scripts
+* Expand analysis with time-series market data
+* Add more advanced financial indicators
+* Deploy an interactive web dashboard
