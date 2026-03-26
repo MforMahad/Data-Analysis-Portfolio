@@ -1,0 +1,22 @@
+Case Study Summary
+Problem
+
+The dataset contained inconsistent and missing values (e.g., UNKNOWN, ERROR, blank fields), 
+making it difficult to analyze sales performance accurately.
+
+Approach
+Cleaned and standardized the dataset using Excel
+Recalculated incorrect values (Quantity, Total Spent)
+Handled missing categorical and date values
+Performed exploratory data analysis using SQL
+Built an interactive dashboard in Power BI
+
+Key Findings
+Salad is the highest revenue-generating product
+Sales peaked in June, indicating seasonal demand
+A large portion of transactions had missing payment and location data
+
+Business Recommendations
+Improve data collection systems to reduce “Unknown” values
+Focus on high-performing products like Salad
+Investigate seasonal trends to optimize inventory and marketing
