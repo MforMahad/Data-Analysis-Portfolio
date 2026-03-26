@@ -1,0 +1,47 @@
+Retail Sales Analysis Project
+
+Overview
+This project analyzes retail sales data for the year 2023 using Excel, SQL, and Power BI. 
+The goal was to clean raw data, perform exploratory data analysis (EDA), and build an interactive dashboard.
+
+Tools Used
+Excel (Data Cleaning & Pivot Tables)
+MySQL (EDA & Advanced Queries)
+Power BI (Dashboard Visualization)
+
+Data Cleaning
+Handled missing values (UNKNOWN, ERROR, blanks)
+Recalculated incorrect values (Total Spent, Quantity)
+Standardized categories (Payment Method, Location)
+Managed missing dates and formatted columns
+
+Key Insights
+Top Product: Salad generated the highest revenue
+Peak Month: June had the highest sales (~7350)
+Payment Issue: Large revenue categorized as "Unknown"
+Location Issue: Missing location data impacted the analysis
+
+
+Dashboard Features
+KPI Cards (Total Revenue, Transactions, AOV)
+Sales by Item (Bar Chart)
+Monthly Trend (Line Chart)
+Payment Method Distribution (Pie Chart)
+Location Analysis (Column Chart)
+Interactive Filters (Month, Item, Payment Method)
+
+SQL Analysis
+Performed advanced queries, including:
+Revenue aggregation
+Top products
+Monthly trends
+Window functions (LAG) for growth analysis
+
+
+Files Included
+Dataset (CSV)
+SQL queries
+Dashboard screenshot
+
+Conclusion
+This project demonstrates an end-to-end data analysis workflow from raw data to business insights using multiple tools.
