@@ -1,80 +1,23 @@
-🛒 E-Commerce Data Analysis Project
-🔍 Overview
+🛒 E-Commerce Analytics Dashboard (SQL + Power BI)
+🎯 Business Problem
 
-This project analyzes a multi-table e-commerce dataset to extract business insights related to sales performance, 
-customer behavior, and product trends. The analysis was performed using SQL for data exploration and Power BI 
-for interactive visualization.
+Analyzed multi-table e-commerce data to identify revenue drivers, customer segmentation, and product performance trends to support data-driven decision making.
 
-🛠️ Tools Used
-MySQL (Data Analysis, Joins, Aggregations, Window Functions)
-Power BI (Data Modeling & Dashboard)
-Excel (Initial inspection)
-
-🗂️ Dataset Description
-The dataset consists of multiple related tables:
-
-orders → transaction-level data (order value, category, date, delivery status)
-customers → customer demographics (age, gender, city, loyalty score)
-products → product details (name, category, price, stock)
-reviews → customer reviews and ratings
-🔗 Data Modeling
-
-Relationships created:
-
-orders.customer_id → customers.customer_id
-reviews.customer_id → customers.customer_id
-reviews.product_id → products.product_id
-
-This enabled multi-dimensional analysis across customers, products, and transactions.
-
-🧠 Problem Statement
-The goal was to answer key business questions:
-
-Which categories generate the most revenue?
-Which cities contribute the most sales?
+🧠 Key Business Questions Solved
+Which products and categories drive the highest revenue?
 Who are the most valuable customers?
-How do customer segments behave?
-How do product ratings vary across categories?
+Which cities generate the most sales?
+How do customer segments behave over time?
+🛠️ Tools & Skills Used
+SQL (Joins, Aggregations, Window Functions)
+Power BI (Interactive Dashboard, KPI tracking)
+Data Modeling (Relational schema design)
+Excel (Data validation)
+📊 Impact / Insights
+Identified Electronics as top revenue-generating category
+Found high-value customer segments based on spending behavior
+Discovered regional sales concentration (top cities dominate revenue)
+Highlighted seasonal revenue fluctuations for business planning
+📈 Outcome
 
-🛠️ Approach
-Performed SQL joins across multiple tables
-Aggregated revenue and customer metrics
-Applied customer segmentation using loyalty score
-Analyzed product performance and review ratings
-Built a Power BI dashboard for interactive insights
-
-📊 Key Insights
-⚡ Top Category: Electronics generated the highest revenue
-🌆 Top City: Mumbai contributed the most to total sales
-👥 Customer Segmentation: Majority of customers fall into the low-to-medium value segment
-📈 Sales Trend: Revenue fluctuates monthly with noticeable peaks during mid-year
-⭐ Product Feedback: Some categories show higher average ratings, indicating better customer satisfaction
-
-📊 Dashboard Features
-KPI Cards (Total Revenue, Total Orders, Average Order Value)
-Revenue by Category
-Revenue by City
-Monthly Revenue Trend
-Customer Segmentation (High / Medium / Low Value)
-Product Rating Analysis
-Interactive Filters (City, Category, Gender, Delivery Status)
-
-🧠 SQL Analysis
-Performed advanced SQL queries, including:
-
-Revenue aggregation by category and city
-Customer-level spending analysis
-Average order value (AOV)
-Customer segmentation using CASE statements
-Monthly trend analysis
-Multi-table joins for deeper insights
-
-📁 Files Included
-synthetic_ecommerce_dataset_multisheet.csv / tables → Dataset
-EDA_on_ecommerce_data.sql → SQL queries
-Ecommerce Dashboard.pbix
-Ecommerce Dashboard.png → Dashboard screenshot
-
-🚀 Conclusion
-This project demonstrates the ability to work with relational datasets, perform advanced SQL analysis, 
-and build business intelligence dashboards. It highlights skills in data modeling, customer analysis, and insight generation.
+Built an interactive dashboard enabling business stakeholders to monitor KPIs and identify growth opportunities across categories and regions.
