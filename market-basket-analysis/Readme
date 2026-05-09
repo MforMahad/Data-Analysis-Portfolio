@@ -1,0 +1,257 @@
+# 🛒 Multi-Level Market Basket Analysis using FP-Growth
+
+## 🧠 The Problem
+
+Standard Market Basket Analysis has a well-known weakness — **pattern explosion.**
+
+When you run a traditional Apriori algorithm on a large retail dataset, you end up with thousands of hyper-specific rules like:
+
+> *"Customers who buy a White Hanging Heart T-Light Holder also buy a White Metal Lantern."*
+
+Technically correct. Strategically useless.
+
+A business manager doesn't need to know which specific candle sells with which specific lantern. They need to know: **do customers who buy Home Decor also buy Kitchen products?** That's an insight you can actually act on — rearrange a store, launch a promotion, send a targeted email.
+
+This project solves that problem by implementing **Multi-Level Mining with Concept Hierarchies** — a technique that lets us mine patterns at the category level instead of the item level, producing insights that are both statistically valid and business-actionable.
+
+---
+
+## 📦 The Dataset
+
+**UCI Online Retail Dataset** — a real-world transactional record from a UK-based e-commerce retailer.
+
+| Property | Value |
+|----------|-------|
+| Source | [UCI Machine Learning Repository](https://archive.ics.uci.edu/dataset/352/online+retail) |
+| Time Period | December 2010 — December 2011 |
+| Raw Transactions | 541,909 |
+| Countries | 38 |
+| Unique Products | 3,877 |
+
+> ⚠️ Dataset not included in this repo due to size. Download directly from the UCI link above.
+
+---
+
+## 🏗️ The Pipeline
+
+This project follows a structured end-to-end pipeline — from raw noisy data to interactive business intelligence:
+
+```
+Raw CSV (541,909 rows)
+        ↓
+  Data Cleaning          → Remove nulls, cancellations, negatives
+        ↓
+  Concept Hierarchy      → Map 3,877 products into 8 categories
+        ↓
+  Binary Matrix          → One row per invoice, one column per category
+        ↓
+  FP-Growth Mining       → Extract frequent itemsets & association rules
+        ↓
+  MySQL Staging          → Store results in vortex_db
+        ↓
+  Visualization          → NetworkX graph + Power BI dashboard
+```
+
+---
+
+## 🔧 Tech Stack
+
+| Tool | Purpose |
+|------|---------|
+| Python 3.11 | Core language |
+| Pandas & NumPy | Data cleaning and transformation |
+| MLxtend | FP-Growth algorithm implementation |
+| MySQL 8.x | Data staging and storage |
+| SQLAlchemy | Python-MySQL connectivity |
+| NetworkX + Matplotlib | Association rule network graph |
+| Power BI | Interactive executive dashboard |
+
+---
+
+## 🧹 Data Cleaning
+
+The raw dataset had several real-world quality issues that needed to be resolved before any mining could happen:
+
+| Problem | Count | Action |
+|---------|-------|--------|
+| Missing CustomerID | 135,080 | Dropped — identity cannot be imputed |
+| Cancelled transactions | 9,288 | Dropped — InvoiceNo starting with 'C' |
+| Negative quantities | 10,624 | Dropped — returns and errors |
+| Missing descriptions | 1,454 | Dropped — product unknown |
+
+**Result: 397,884 clean transactions — ready for mining.**
+
+> Why drop missing CustomerIDs instead of imputing? Because CustomerID is an identity, not a value. Without knowing *who* made the purchase, we can't group items into baskets. Imputing would create fake customers with random item combinations — corrupting every association rule downstream.
+
+---
+
+## 🗂️ Concept Hierarchy Construction
+
+This is the core innovation of the project. Instead of mining at the item level, we first map every product into one of 8 business categories using keyword-based classification:
+
+```python
+def assign_category(description):
+    desc = str(description).upper()
+    if any(word in desc for word in ['CHRISTMAS', 'XMAS', 'SANTA']):
+        return 'Christmas & Seasonal'
+    elif any(word in desc for word in ['BAG', 'SHOPPER', 'TOTE']):
+        return 'Bags & Storage'
+    # ... and so on
+```
+
+**Final Category Distribution:**
+
+| Category | Transactions | Share |
+|----------|-------------|-------|
+| Home Decor | 112,830 | 28.4% |
+| Kitchen & Dining | 87,298 | 21.9% |
+| Bags & Storage | 39,367 | 9.9% |
+| Stationery & Craft | 32,142 | 8.1% |
+| Christmas & Seasonal | 19,715 | 5.0% |
+| Party & Celebrations | 18,166 | 4.6% |
+| Garden | 15,721 | 4.0% |
+| Toys & Novelty | 15,415 | 3.9% |
+
+---
+
+## ⛏️ FP-Growth Mining
+
+With categories in place, we built a **binary transaction matrix** — one row per invoice, one column per category — and ran the FP-Growth algorithm.
+
+**Why FP-Growth over Apriori?**
+Apriori generates candidate itemsets at every pass — expensive on large datasets. FP-Growth builds a compressed tree structure once and mines it directly. No candidate generation means significantly faster execution on 397k rows.
+
+**Parameters:**
+- Minimum Support: 5% (rule must appear in at least 926 invoices)
+- Minimum Lift: 1.0 (only genuine associations, not coincidences)
+
+**Output:**
+- 226 frequent itemsets discovered
+- 56 simple association rules generated
+
+---
+
+## 📊 Key Findings
+
+### Top Association Rules
+
+| If Customer Buys... | They Also Buy... | Confidence | Lift |
+|--------------------|-----------------|------------|------|
+| Christmas & Seasonal | Toys & Novelty | 53% | 1.51 |
+| Party & Celebrations | Garden | 55% | 1.41 |
+| Stationery & Craft | Christmas & Seasonal | 66% | 1.41 |
+| Garden | Party & Celebrations | 54% | 1.41 |
+| Toys & Novelty | Stationery & Craft | 65% | 1.40 |
+
+### What These Mean in Plain English
+
+**🎄 Holiday Insight**
+53% of customers who buy Christmas items also buy Toys & Novelty in the same transaction — 51% more often than random chance.
+→ *Bundle Christmas and Toys sections together. Cross-promote in email campaigns.*
+
+**🎉 Party Insight**
+55% of Party shoppers also buy Garden products in the same transaction.
+→ *Place seasonal garden items near party supplies. Target party buyers with garden promotions.*
+
+**✏️ Craft Insight**
+66% of Stationery & Craft buyers also buy Christmas items — the highest confidence rule discovered.
+→ *Craft buyers are your best Christmas cross-sell target. Launch early Christmas campaigns for this segment.*
+
+---
+
+## 🕸️ Association Network Graph
+
+The network below shows all 56 association rules. Each node is a category, each edge is a rule, and edge thickness represents lift strength.
+
+![Association Network](association_network.png)
+
+**Key observations:**
+- Home Decor is the most connected node — it associates with almost every other category
+- The Christmas ↔ Toys edge is the thickest — the strongest rule in the dataset
+- Stationery & Craft sits centrally — a high-value cross-selling hub
+
+---
+
+## 📈 Power BI Dashboard
+
+A 3-page interactive dashboard built on top of the MySQL staging layer.
+
+### Page 1 — Data Overview
+![Dashboard Overview](screenshots/dashboard_overview.png)
+
+### Page 2 — Association Rules Analysis
+![Association Rules](screenshots/association_rules.png)
+
+### Page 3 — Business Insights
+![Business Insights](screenshots/business_insights.png)
+
+---
+
+## 🗄️ MySQL Staging
+
+All results were staged into a local MySQL database (`vortex_db`) using SQLAlchemy, enabling direct Power BI connectivity:
+
+```
+vortex_db
+├── clean_transactions   → 397,884 rows
+├── frequent_itemsets    → 226 rows
+└── association_rules    → 56 rows
+```
+
+---
+
+## 🚀 How to Run
+
+```bash
+# 1. Clone the repo
+git clone https://github.com/MforMahad/market-basket-analysis.git
+
+# 2. Install dependencies
+pip install pandas numpy mlxtend sqlalchemy pymysql networkx matplotlib
+
+# 3. Download the dataset
+# UCI Online Retail Dataset:
+# https://archive.ics.uci.edu/dataset/352/online+retail
+# Save as 'Online Retail.csv' in the project folder
+
+# 4. Run the notebook
+jupyter notebook market_basket.ipynb
+```
+
+---
+
+## 📁 Project Structure
+
+```
+market-basket-analysis/
+├── market_basket.ipynb       ← Main notebook (full pipeline)
+├── association_rules.csv     ← 56 mined rules with metrics
+├── association_network.png   ← NetworkX visualization
+├── screenshots/              ← Power BI dashboard screenshots
+│   ├── dashboard_overview.png
+│   ├── association_rules.png
+│   └── business_insights.png
+└── README.md                 ← You are here
+```
+
+---
+
+## 💡 Key Learnings
+
+- Real-world data is messy — 26% of the dataset had to be dropped before mining
+- Concept Hierarchies are the difference between noise and insight
+- FP-Growth is significantly more practical than Apriori at scale
+- Association rules are only useful when translated into business actions — the algorithm is the easy part
+
+---
+
+## 👤 Author
+
+**Mahad Khan** — Data Analyst | Python • SQL • Power BI
+- 🌐 [Portfolio](https://mformahad.netlify.app/)
+- 💼 [LinkedIn](https://linkedin.com/in/mahad-khan-85683025a/)
+- 🐙 [GitHub](https://github.com/MforMahad)
+
+---
+
+*MS Computer Science | SZABIST Karachi | 2025*
